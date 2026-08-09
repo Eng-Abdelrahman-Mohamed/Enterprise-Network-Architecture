@@ -1,133 +1,199 @@
-# Enterprise Network Architecture
+# Enterprise Network Architecture 🌐
 
-> A multi-site Cisco Packet Tracer enterprise network simulation demonstrating routed campus connectivity, resilient Layer 2/Layer 3 design, centralized services, and practical access controls.
+<p align="center">
+  <strong>Enterprise Network Design & Simulation using Cisco Packet Tracer</strong><br>
+  Multi-site routing, switching, security, services, and high availability
+</p>
 
-## Project Overview
+<p align="center">
+  <img src="https://img.shields.io/badge/Cisco-Packet%20Tracer-1BA0D7?style=for-the-badge&logo=cisco&logoColor=white" alt="Cisco Packet Tracer">
+  <img src="https://img.shields.io/badge/Networking-Enterprise-0A66C2?style=for-the-badge" alt="Enterprise Networking">
+  <img src="https://img.shields.io/badge/Routing-OSPF%20%7C%20EIGRP%20%7C%20eBGP-6f42c1?style=for-the-badge" alt="Routing">
+  <img src="https://img.shields.io/badge/Security-ACL%20%7C%20DHCP%20Snooping%20%7C%20Port%20Security-d73a49?style=for-the-badge" alt="Security">
+</p>
 
-This project models an enterprise network that connects a headquarters (HQ), an Engineering campus, and a Remote Campus through an ISP-facing WAN. The simulation is built in Cisco Packet Tracer and is intended as a portfolio project for CCNA-level networking, switching, routing, services, and security concepts.
+## 📌 Project Overview
 
-The repository contains the complete Packet Tracer project and organized verification screenshots. The screenshots were renamed for clarity only; their contents have not been altered.
+This project is a complete **multi-site enterprise network architecture and simulation** built with **Cisco Packet Tracer**. It connects a **Headquarters (HQ)**, **Engineering Campus**, and **Remote Campus** through an ISP-facing WAN while implementing real-world enterprise routing, switching, security, network services, and redundancy technologies.
 
-## Network Architecture
+The project focuses on building a network that is **scalable, redundant, segmented, secure, and verifiable** through practical configuration and connectivity tests.
 
-The topology uses a hierarchical campus design at each site, with access switches connected to redundant core or distribution switches. The HQ site also contains a data-center segment that hosts the DHCP, DNS, and database services shown in the topology. Router links interconnect the Remote Campus, HQ, Engineering campus, and ISP.
+### 🏢 Sites & Main Components
 
-Key design elements visible in the project include:
+- **Headquarters (HQ)** with redundant core switches and a data-center/server segment.
+- **Engineering Campus** with redundant distribution switches and segmented user networks.
+- **Remote Campus** with its own core, VLANs, wireless clients, and WAN connectivity.
+- **ISP/WAN edge** providing external routing and eBGP connectivity.
+- **DHCP, DNS, and Database services** hosted in the HQ server segment.
+- **Wireless access points and clients** distributed across the campuses.
 
-- **HQ, Engineering, and Remote Campus** user networks, each with dedicated VLANs and access-layer connectivity.
-- **Redundant HQ core and Engineering distribution pairs** that provide Layer 3 gateways for user VLANs.
-- **WAN/edge routing** between sites and the ISP.
-- **Data-center services** at HQ, including DHCP, DNS, and a database server at `10.10.60.20`.
-- **Wireless endpoints** shown at each campus through access points and wireless clients.
+![Complete Enterprise Network Topology](screenshots/topology/enterprise-network-topology.png)
 
-![Complete enterprise topology](screenshots/topology/enterprise-network-topology.png)
+*Complete multi-site enterprise topology including HQ, Engineering, Remote Campus, ISP, VLANs, servers, and wireless components.*
 
-*Complete enterprise topology: Remote Campus, HQ, Engineering campus, ISP connectivity, user VLANs, access points, and HQ services.*
+---
 
-## Cisco Packet Tracer
+## 🧭 Table of Contents
 
-Open [`Abdelrahman-Enterprise-Network.pkt`](Abdelrahman-Enterprise-Network.pkt) in Cisco Packet Tracer to explore the simulated devices, links, addressing, and configurations. The Packet Tracer project is preserved as the source-of-truth simulation artifact and is not modified by this documentation work.
+- [Architecture](#-architecture)
+- [Routing & WAN](#-routing--wan-connectivity)
+- [Switching & VLANs](#-switching--vlans)
+- [High Availability](#-high-availability--redundancy)
+- [Network Security](#-network-security)
+- [Network Services](#-network-services)
+- [Testing & Verification](#-testing--verification)
+- [Technologies](#-technologies--protocols)
+- [Project Structure](#-project-structure)
+- [Skills Demonstrated](#-skills-demonstrated)
+- [Project Files](#-project-files)
+- [Author](#-author)
 
-Suggested checks in Packet Tracer:
+---
 
-1. Inspect device interfaces and routing tables with `show ip route`.
-2. Review VLAN/SVI status with `show vlan brief` and `show ip interface brief`.
-3. Verify first-hop redundancy with `show standby brief`.
-4. Review LACP, spanning tree, DHCP snooping, port security, and ACL output using the documented screenshots as a guide.
+## 🏗️ Architecture
 
-## Routing and WAN Connectivity
+The network follows a hierarchical and multi-site enterprise design with Layer 2 access connectivity, Layer 3 distribution/core functions, redundant gateways, and routed WAN links.
 
-### Routing Protocols
+### Main architectural elements
 
-The verification output documents the following dynamic-routing behavior:
+- Multi-site campus architecture
+- Dedicated VLANs for different departments and services
+- Layer 3 SVIs for inter-VLAN routing
+- Redundant core/distribution switches
+- WAN routing between sites
+- ISP-facing edge connectivity
+- Centralized network services at HQ
+- Wireless access at each campus
+- Multiple paths for network resiliency
 
-| Protocol | Evidence in the project |
-| --- | --- |
-| **OSPF** | `O` and `O E2` routes are shown in the routing tables. |
-| **EIGRP** | `D` and `D EX` routes are shown in the routing tables. |
-| **eBGP** | `B` routes are shown on the Remote Campus and ISP routing tables. |
+---
+
+## 🔀 Routing & WAN Connectivity
+
+The project implements multiple routing domains and demonstrates interaction between different routing protocols.
+
+### OSPF
+
+- OSPF dynamic routing
+- OSPF-learned routes
+- OSPF external Type-2 (`O E2`) routes
+- Routing-table verification
+
+![OSPF and EIGRP Routing Tables](screenshots/routing/ospf-and-eigrp-routing-tables.png)
+
+### EIGRP
+
+- EIGRP dynamic routing
+- EIGRP-learned routes (`D`)
+- EIGRP external routes (`D EX`)
+- Routing-table verification
+
+### eBGP
+
+- eBGP connectivity between the Remote Campus edge and ISP
+- BGP-learned routes (`B`)
+- WAN/Internet-edge routing verification
+
+![eBGP Routing Tables](screenshots/routing/ebgp-routing-tables-rc-and-isp.png)
 
 ### Route Redistribution
 
-The routing tables show both OSPF external type-2 (`O E2`) and EIGRP external (`D EX`) entries. This is evidence of redistributed routes being exchanged between routing domains; the README intentionally does not infer unshown redistribution commands or metrics.
+The routing tables provide evidence of **route redistribution between routing domains**, including OSPF external (`O E2`) and EIGRP external (`D EX`) routes.
 
-![eBGP routing evidence](screenshots/routing/ebgp-routing-tables-rc-and-isp.png)
+The project therefore demonstrates the practical use of:
 
-*Remote Campus and ISP routing tables showing BGP-learned routes.*
+- OSPF
+- EIGRP
+- eBGP
+- Route Redistribution
+- Multi-domain routing
+- WAN/ISP connectivity
+- Routing-table verification
 
-![OSPF and EIGRP routing evidence](screenshots/routing/ospf-and-eigrp-routing-tables.png)
+---
 
-*HQ Edge and Engineering routing tables showing OSPF and EIGRP/EIGRP-external route entries.*
+## 🔄 Switching & VLANs
 
-## Switching and High Availability
+### VLAN Segmentation
 
-### SVI and Inter-VLAN Routing
+The enterprise network uses VLAN segmentation to separate users, departments, services, voice, wireless, and infrastructure traffic.
 
-The HQ core, Engineering distribution, and Remote Campus core switches show active switch virtual interfaces (SVIs) for their local VLANs. These Layer 3 SVIs provide the inter-VLAN gateways for end devices.
+Examples include:
 
-### VLANs and VLAN Segmentation
+- **HQ:** VLANs 10–90, including HR (VLAN 80) and Servers (VLAN 60).
+- **Engineering:** VLANs 110–160 for students, labs, staff, Wi-Fi, CCTV, and phones.
+- **Remote Campus:** VLANs 210–240 for students, staff, labs, and Wi-Fi.
 
-The topology and switch output show functional segmentation for groups such as IT, administration, labs, voice, printers, Wi-Fi, servers, CCTV, HR, finance, students, and staff. Examples include:
+### SVI & Inter-VLAN Routing
 
-- **HQ:** VLANs 10–90, including the HR VLAN 80 and Server VLAN 60.
-- **Engineering:** VLANs 110–160 for students, lab, staff, Wi-Fi, CCTV, and phones.
-- **Remote Campus:** VLANs 210–240 for students, staff, lab, and Wi-Fi.
+**Switch Virtual Interfaces (SVIs)** are configured as Layer 3 gateways for local VLANs, enabling communication between different VLANs while maintaining logical network segmentation.
 
-### HSRP
+![HQ SVI, VLAN & HSRP Status](screenshots/switching/hq-core-svis-vlans-and-hsrp-status.png)
 
-`show standby brief` output documents active/standby HSRP roles and virtual gateway addresses on the redundant HQ core and Engineering distribution switch pairs. HSRP provides a resilient default gateway for the associated VLANs.
+![Campus SVI, VLAN & HSRP Status](screenshots/switching/campus-svis-vlans-and-hsrp-status.png)
 
-![HQ SVI, VLAN, and HSRP status](screenshots/switching/hq-core-svis-vlans-and-hsrp-status.png)
+![Engineering SVI, VLAN & HSRP Status](screenshots/switching/engineering-distribution-svis-vlans-and-hsrp-status.png)
 
-*HQ core switches: SVI addressing, VLAN definitions, and HSRP active/standby state.*
+### 802.1Q Trunking
 
-![Campus SVI, VLAN, and HSRP status](screenshots/switching/campus-svis-vlans-and-hsrp-status.png)
-
-*Remote Campus and Engineering switching output: local SVIs, VLANs, and first-hop redundancy.*
-
-![Engineering SVI, VLAN, and HSRP status](screenshots/switching/engineering-distribution-svis-vlans-and-hsrp-status.png)
-
-*Engineering distribution pair: VLANs, SVIs, and complementary HSRP states.*
+Trunk links carry multiple VLANs between switching devices and support the multi-VLAN campus architecture.
 
 ### EtherChannel / LACP
 
-The EtherChannel verification shows Port-channel 1 operating with **LACP** and carrying trunk VLANs. Bundled links improve bandwidth and preserve connectivity if an individual member link fails.
+- EtherChannel configuration
+- LACP negotiation
+- Port-channel operation
+- 802.1Q trunking over aggregated links
+- Link redundancy and increased aggregate bandwidth
 
-![LACP EtherChannel and trunk status](screenshots/switching/lacp-etherchannel-and-trunk-status.png)
-
-*LACP EtherChannel summary and 802.1Q trunk status at the HQ core and Engineering distribution layer.*
+![LACP EtherChannel & Trunk Status](screenshots/switching/lacp-etherchannel-and-trunk-status.png)
 
 ### Rapid-PVST+
 
-Switch output identifies the spanning-tree mode as **rapid-pvst**. Rapid-PVST+ provides per-VLAN loop prevention and faster convergence for the redundant switched topology.
+Rapid-PVST+ is used for Layer 2 loop prevention and faster spanning-tree convergence across the redundant switching topology.
 
-## Services
+---
 
-### DHCP
+## 🛡️ High Availability & Redundancy
 
-The HQ DHCP server shows pools for the campus VLANs, and endpoint screens show clients receiving addresses, default gateways, and DNS settings through DHCP.
+The design uses several technologies together to reduce single points of failure.
 
-![DHCP pools and client addressing](screenshots/services/dhcp-pools-and-client-addressing.png)
+### HSRP
 
-*DHCP pool inventory with clients in HQ, Engineering, and Remote Campus configured by DHCP.*
+**Hot Standby Router Protocol (HSRP)** provides redundant default gateways for VLANs using active/standby roles across the HQ core and Engineering distribution switch pairs.
 
-### DNS and End-to-End Connectivity
+The project verifies:
 
-Connectivity tests show successful name resolution for `university.local` and successful inter-campus pings from representative endpoints.
+- HSRP active/standby states
+- Virtual gateway addresses
+- Redundant SVI gateways
+- First-hop gateway resiliency
 
-![DNS and inter-campus connectivity](screenshots/services/dns-and-intercampus-connectivity.png)
+### EtherChannel / LACP
 
-*Name-resolution and cross-campus ping validation from Remote Campus, HQ, and Engineering endpoints.*
+Aggregates multiple physical links into logical Port-channels, improving resiliency and maintaining connectivity if an individual member link fails.
 
-### Wireless Networking
+### Rapid-PVST+
 
-The logical topology contains access points and wireless clients at HQ, Engineering, and the Remote Campus. This repository documents their presence in the simulation; it does not claim wireless security settings that are not visible in the available evidence.
+Provides per-VLAN loop prevention and rapid Layer 2 convergence.
 
-## Network Security
+### Overall redundancy design
 
-### ACLs and Traffic Filtering
+- HSRP gateway redundancy
+- LACP link redundancy
+- Rapid-PVST+ loop prevention
+- Redundant core/distribution paths
+- Multiple routed paths between sites
 
-The extended `DB-ACCESS` ACL is documented on the HQ core switches. The policy is deliberately scoped to the database server:
+---
+
+## 🔐 Network Security
+
+The project includes practical Layer 2 and Layer 3 security controls.
+
+### Extended ACLs
+
+A dedicated `DB-ACCESS` extended ACL protects the database server at `10.10.60.20`:
 
 ```text
 10 permit ip 10.10.80.0 0.0.0.255 host 10.10.60.20
@@ -135,46 +201,103 @@ The extended `DB-ACCESS` ACL is documented on the HQ core switches. The policy i
 30 permit ip any any
 ```
 
-This permits the **HR subnet (VLAN 80, `10.10.80.0/24`)** to reach the database server at **`10.10.60.20`**, denies all other sources to that host, and permits other traffic. The validation screenshot shows an HR endpoint reaching the database server while a Finance endpoint is unable to do so.
+This policy:
 
-![DB server ACL policy](screenshots/security/db-server-access-acl-policy.png)
+- Allows the **HR subnet (VLAN 80 / 10.10.80.0/24)** to access the database server.
+- Blocks other sources from accessing the database server.
+- Allows unrelated traffic to continue normally.
 
-*`DB-ACCESS` ACL output on the HQ core pair, including the HR-only database-server policy.*
+![DB Server ACL Policy](screenshots/security/db-server-access-acl-policy.png)
 
-![DB server ACL validation](screenshots/security/db-server-acl-validation.png)
+![DB Server ACL Validation](screenshots/security/db-server-acl-validation.png)
 
-*Connectivity validation: HR traffic reaches the database server while Finance traffic is blocked.*
+The validation evidence demonstrates successful HR access and blocked Finance access to the protected database server.
 
-### DHCP Snooping and Port Security
+### DHCP Snooping
 
-Switch output documents DHCP snooping bindings and port-security enforcement on access interfaces. Together, these controls help limit unauthorized DHCP behavior and restrict endpoint access at the switch port.
+DHCP snooping is used to build trusted DHCP bindings and help prevent unauthorized DHCP-server behavior on access networks.
 
-![Rapid-PVST+, DHCP snooping, and port security](screenshots/security/rapid-pvst-dhcp-snooping-and-port-security.png)
+### Port Security
 
-*Remote Campus verification: Rapid-PVST+ mode, DHCP snooping bindings, and port-security status.*
+Port-security controls are applied on access interfaces to restrict unauthorized endpoint access and provide Layer 2 access protection.
 
-## Network Redundancy and High Availability
+![Rapid-PVST+, DHCP Snooping & Port Security](screenshots/security/rapid-pvst-dhcp-snooping-and-port-security.png)
 
-The design combines multiple resilience mechanisms:
+---
 
-- **HSRP** on the HQ core and Engineering distribution pairs for redundant VLAN gateways.
-- **LACP EtherChannel** on inter-switch uplinks for link aggregation and member-link resilience.
-- **Rapid-PVST+** to prevent Layer 2 loops and reconverge quickly when topology changes.
-- **Multiple core/distribution paths** visible in the physical topology.
+## 🌐 Network Services
 
-## Technologies / Protocols
+### DHCP
 
-| Area | Technologies and protocols evidenced in this project |
-| --- | --- |
-| Simulation | Cisco Packet Tracer |
-| Dynamic routing | OSPF, EIGRP, eBGP, route redistribution evidence |
-| First-hop resilience | HSRP |
-| Layer 2 switching | VLANs, SVIs, 802.1Q trunks, EtherChannel/LACP, Rapid-PVST+ |
-| IP services | DHCP, DNS |
-| Access security | Extended ACLs, DHCP snooping, port security |
-| Wireless | Access points and wireless endpoints in the topology |
+Centralized DHCP pools provide IP addressing information to clients across the enterprise VLANs.
 
-## Project Structure
+![DHCP Pools & Client Addressing](screenshots/services/dhcp-pools-and-client-addressing.png)
+
+### DNS
+
+DNS is implemented for internal name resolution, including the `university.local` domain shown in the verification evidence.
+
+### Wireless Networking
+
+Access points and wireless clients are included at HQ, Engineering, and the Remote Campus to represent wireless enterprise access.
+
+### Database Services
+
+The HQ data-center segment includes a database server at `10.10.60.20`, protected by the documented ACL policy.
+
+### Inter-campus Connectivity
+
+Connectivity between representative endpoints across the different campuses is validated using ping and DNS tests.
+
+![DNS & Inter-campus Connectivity](screenshots/services/dns-and-intercampus-connectivity.png)
+
+---
+
+## 🧪 Testing & Verification
+
+The network was validated through practical operational checks, including:
+
+- `show ip route`
+- OSPF route verification
+- EIGRP route verification
+- eBGP route verification
+- External-route verification
+- `show vlan brief`
+- `show ip interface brief`
+- `show standby brief`
+- EtherChannel / LACP verification
+- Trunk verification
+- Rapid-PVST+ verification
+- DHCP snooping binding verification
+- Port-security verification
+- ACL policy verification
+- DHCP client addressing
+- DNS resolution
+- Inter-campus ping tests
+- Positive and negative ACL connectivity tests
+
+---
+
+## 📊 Technologies & Protocols
+
+| Category | Technologies |
+|---|---|
+| **Simulation** | Cisco Packet Tracer |
+| **Routing** | OSPF, EIGRP, eBGP |
+| **Routing Integration** | Route Redistribution |
+| **Layer 3 Switching** | SVI, Inter-VLAN Routing |
+| **Segmentation** | VLANs, 802.1Q Trunking |
+| **High Availability** | HSRP |
+| **Link Aggregation** | EtherChannel, LACP |
+| **Spanning Tree** | Rapid-PVST+ |
+| **IP Services** | DHCP, DNS |
+| **Security** | Extended ACLs, DHCP Snooping, Port Security |
+| **Wireless** | Access Points, Wireless Clients |
+| **WAN** | Inter-site Routing, ISP Connectivity, eBGP |
+
+---
+
+## 📁 Project Structure
 
 ```text
 Enterprise-Network-Architecture/
@@ -200,23 +323,73 @@ Enterprise-Network-Architecture/
         └── dns-and-intercampus-connectivity.png
 ```
 
-## Screenshots
+---
 
-| Category | Screenshot | What it documents |
-| --- | --- | --- |
-| Topology | [Enterprise topology](screenshots/topology/enterprise-network-topology.png) | Complete multi-site logical design, user segments, services, and wireless components. |
-| Routing | [eBGP routing tables](screenshots/routing/ebgp-routing-tables-rc-and-isp.png) | BGP route learning between Remote Campus and ISP. |
-| Routing | [OSPF and EIGRP routing tables](screenshots/routing/ospf-and-eigrp-routing-tables.png) | OSPF and EIGRP/EIGRP-external entries. |
-| Switching | [HQ SVI/VLAN/HSRP](screenshots/switching/hq-core-svis-vlans-and-hsrp-status.png) | HQ gateway SVIs, VLANs, and HSRP roles. |
-| Switching | [Campus SVI/VLAN/HSRP](screenshots/switching/campus-svis-vlans-and-hsrp-status.png) | Remote Campus and Engineering switching verification. |
-| Switching | [Engineering SVI/VLAN/HSRP](screenshots/switching/engineering-distribution-svis-vlans-and-hsrp-status.png) | Engineering distribution gateway redundancy. |
-| Switching | [LACP EtherChannel](screenshots/switching/lacp-etherchannel-and-trunk-status.png) | Port-channel and trunk operation. |
-| Security | [Rapid-PVST+, DHCP snooping, and port security](screenshots/security/rapid-pvst-dhcp-snooping-and-port-security.png) | Layer 2 resilience and access-port security controls. |
-| Security | [DB ACL policy](screenshots/security/db-server-access-acl-policy.png) | HR-only access to the database server. |
-| Security | [DB ACL validation](screenshots/security/db-server-acl-validation.png) | Allowed HR and denied Finance traffic. |
-| Services | [DHCP pools and clients](screenshots/services/dhcp-pools-and-client-addressing.png) | DHCP scope and endpoint lease evidence. |
-| Services | [DNS and connectivity](screenshots/services/dns-and-intercampus-connectivity.png) | Name resolution and cross-campus reachability. |
+## 📸 Verification Screenshots
+
+| Category | Evidence |
+|---|---|
+| **Topology** | Complete enterprise topology |
+| **Routing** | OSPF, EIGRP, eBGP and external-route evidence |
+| **Switching** | VLANs, SVIs, HSRP, EtherChannel and trunking |
+| **Security** | ACLs, DHCP Snooping and Port Security |
+| **Services** | DHCP, DNS and inter-campus connectivity |
+
+All verification screenshots are organized under the `screenshots/` directory for easier navigation.
 
 ---
 
-This README documents only technologies and outcomes visible in the Packet Tracer project inventory and the included verification screenshots.
+## 💡 Skills Demonstrated
+
+This project demonstrates practical skills in:
+
+- Enterprise Network Architecture
+- Cisco Routing & Switching
+- OSPF
+- EIGRP
+- eBGP
+- Route Redistribution
+- VLAN Design & Segmentation
+- SVI Configuration
+- Inter-VLAN Routing
+- HSRP
+- EtherChannel / LACP
+- 802.1Q Trunking
+- Rapid-PVST+
+- DHCP & DNS
+- Extended ACLs
+- DHCP Snooping
+- Port Security
+- Wireless Networking
+- WAN Connectivity
+- Network Troubleshooting
+- Connectivity Testing
+- Network Redundancy & High Availability
+
+---
+
+## 📦 Project Files
+
+- **`Abdelrahman-Enterprise-Network.pkt`** — Complete Cisco Packet Tracer simulation.
+- **`README.md`** — Full project documentation.
+- **`screenshots/`** — Organized topology and configuration verification evidence.
+
+The Packet Tracer `.pkt` file is preserved as the source-of-truth simulation artifact.
+
+---
+
+## 👨‍💻 Author
+
+### Abdelrahman Mohamed
+
+**Electrical Engineering Student | Telecommunications & Electronics**
+
+Interested in **Computer Networks, Network Engineering, Routing & Switching, and Enterprise Infrastructure**.
+
+---
+
+⭐ If you find this project useful, feel free to star the repository.
+
+---
+
+> **Note:** This documentation describes the technologies and outcomes evidenced by the Packet Tracer project and the included verification screenshots. It avoids claiming configuration details that are not directly supported by the available project evidence.
