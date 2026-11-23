@@ -44,8 +44,10 @@ The project focuses on building a network that is **scalable, redundant, segment
 - [Testing & Verification](#-testing--verification)
 - [Technologies](#-technologies--protocols)
 - [Project Structure](#-project-structure)
+- [How to Open & Explore](#-how-to-open--explore-the-simulation)
 - [Skills Demonstrated](#-skills-demonstrated)
 - [Project Files](#-project-files)
+- [Related Lab Project](#-related-lab-project)
 - [Author](#-author)
 
 ---
@@ -98,9 +100,9 @@ The project implements multiple routing domains and demonstrates interaction bet
 
 ### Route Redistribution
 
-The routing tables provide evidence of **route redistribution between routing domains**, including OSPF external (`O E2`) and EIGRP external (`D EX`) routes.
+Inter-domain routing integrates OSPF, EIGRP, and eBGP through mutual route redistribution, verified via external routes (`O E2` and `D EX`) across the routing tables.
 
-The project therefore demonstrates the practical use of:
+The project demonstrates practical implementation of:
 
 - OSPF
 - EIGRP
@@ -211,11 +213,11 @@ This policy:
 
 ![DB Server ACL Validation](screenshots/security/db-server-acl-validation.png)
 
-The validation evidence demonstrates successful HR access and blocked Finance access to the protected database server.
+Both permitted HR access and blocked Finance access to `10.10.60.20` are verified in the simulation tests.
 
 ### DHCP Snooping
 
-DHCP snooping is used to build trusted DHCP bindings and help prevent unauthorized DHCP-server behavior on access networks.
+DHCP snooping builds trusted DHCP bindings and prevents unauthorized DHCP server spoofing on access networks.
 
 ### Port Security
 
@@ -235,7 +237,7 @@ Centralized DHCP pools provide IP addressing information to clients across the e
 
 ### DNS
 
-DNS is implemented for internal name resolution, including the `university.local` domain shown in the verification evidence.
+DNS is implemented for internal name resolution, including the `university.local` domain.
 
 ### Wireless Networking
 
@@ -243,7 +245,7 @@ Access points and wireless clients are included at HQ, Engineering, and the Remo
 
 ### Database Services
 
-The HQ data-center segment includes a database server at `10.10.60.20`, protected by the documented ACL policy.
+The HQ data-center segment includes a database server at `10.10.60.20`, protected by the documented `DB-ACCESS` ACL policy.
 
 ### Inter-campus Connectivity
 
@@ -325,12 +327,25 @@ Enterprise-Network-Architecture/
 
 ---
 
+## 🚀 How to Open & Explore the Simulation
+
+1. Download **`Abdelrahman-Enterprise-Network.pkt`** from this repository.
+2. Open it in **Cisco Packet Tracer (8.x or newer)**.
+3. Inspect the running state and verify configurations directly from the CLI on core/distribution switches and edge routers:
+   - `show ip route` — verify OSPF, EIGRP, eBGP, and redistributed external routes (`O E2`, `D EX`)
+   - `show standby brief` — verify HSRP active/standby gateway redundancy
+   - `show etherchannel summary` — verify LACP Port-channel link aggregation
+   - `show access-lists DB-ACCESS` — verify the database server protection ACL
+   - `show ip dhcp snooping binding` — verify trusted DHCP bindings on access ports
+
+---
+
 ## 📸 Verification Screenshots
 
 | Category | Evidence |
 |---|---|
 | **Topology** | Complete enterprise topology |
-| **Routing** | OSPF, EIGRP, eBGP and external-route evidence |
+| **Routing** | OSPF, EIGRP, eBGP and external-route verification |
 | **Switching** | VLANs, SVIs, HSRP, EtherChannel and trunking |
 | **Security** | ACLs, DHCP Snooping and Port Security |
 | **Services** | DHCP, DNS and inter-campus connectivity |
@@ -372,9 +387,14 @@ This project demonstrates practical skills in:
 
 - **`Abdelrahman-Enterprise-Network.pkt`** — Complete Cisco Packet Tracer simulation.
 - **`README.md`** — Full project documentation.
-- **`screenshots/`** — Organized topology and configuration verification evidence.
+- **`screenshots/`** — Organized topology and configuration verification captures.
 
-The Packet Tracer `.pkt` file is preserved as the source-of-truth simulation artifact.
+---
+
+## 🔗 Related Lab Project
+
+- [**MCSA Windows Server Infrastructure Lab**](https://github.com/Eng-Abdelrahman-Mohamed/MCSA-Windows-Server-Infrastructure) — Companion Windows Server 2019 lab (Active Directory, DNS, DHCP Failover, DFS/DFSR, GPO, and RRAS/VPN).
+- [**Main GitHub Profile**](https://github.com/Eng-Abdelrahman-Mohamed) — Full portfolio, skills, and lab index.
 
 ---
 
