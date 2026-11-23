@@ -380,16 +380,15 @@ The Packet Tracer `.pkt` file is preserved as the source-of-truth simulation art
 
 ## 👨‍💻 Author
 
-### Abdelrahman Mohamed
+**Abdelrahman Mohamed AbdelAal**  
+Electronics & Communications Engineering Student | Al-Azhar University (Cairo, Egypt)
 
-**Electrical Engineering Student | Telecommunications & Electronics**
+Focused on **Network Engineering (CCNA Track), Enterprise Routing & Switching, Windows Server (MCSA), and IT Support / Helpdesk**.
 
-Interested in **Computer Networks, Network Engineering, Routing & Switching, and Enterprise Infrastructure**.
+- 🔗 [LinkedIn](https://www.linkedin.com/in/abdelrahman-mhmed/)
+- 💻 [GitHub](https://github.com/Eng-Abdelrahman-Mohamed)
+- 📧 [eng.abdelrahman.abdelaal@gmail.com](mailto:eng.abdelrahman.abdelaal@gmail.com)
 
 ---
 
 ⭐ If you find this project useful, feel free to star the repository.
-
----
-
-> **Note:** This documentation describes the technologies and outcomes evidenced by the Packet Tracer project and the included verification screenshots. It avoids claiming configuration details that are not directly supported by the available project evidence.
